@@ -3,8 +3,11 @@ package utils
 import (
 	"bytes"
 	"crypto/tls"
+	"fmt"
 	"html/template"
 	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/gfregalado/crowdfund-api/config"
 	"github.com/gfregalado/crowdfund-api/models"
@@ -56,4 +59,26 @@ func SendEmail(user *models.DBResponse, data *EmailData, temp *template.Template
 		return err
 	}
 	return nil
+}
+
+// ? Email template parser
+func ParseTemplateDir(dir string) (*template.Template, error) {
+	var paths []string
+	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			paths = append(paths, path)
+		}
+		return nil
+	})
+
+	fmt.Println("Am parsing templates...")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return template.ParseFiles(paths...)
 }
