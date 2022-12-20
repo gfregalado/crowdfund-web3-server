@@ -32,7 +32,7 @@ runs:
       run: |-
           gcloud run deploy ${{ inputs.project-id }}-${{ inputs.app-env }} \
             --region europe-west2 \
-            --europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest \
+            --image europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest \
             --set-env-vars "PORT=8000" \
             --port "8080" \
             --platform "managed" \
