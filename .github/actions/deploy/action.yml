@@ -29,4 +29,4 @@ runs:
 
     - name: Deploy to Cloudrun
       shell: bash
-      run: gcloud run deploy ${{ inputs.project-id }}-${{ inputs.app-env }} --image europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest
+      run: gcloud run deploy ${{ inputs.project-id }}-${{ inputs.app-env }} --region europe-west2 --image europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest
