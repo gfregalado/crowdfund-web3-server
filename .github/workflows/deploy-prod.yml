@@ -40,14 +40,14 @@ jobs:
           client-url: coming-soon
           access-token-private-key: ${{ secrets.ACCESS_TOKEN_PRIVATE_KEY }}
           access-token-public-key: ${{ secrets.ACCESS_TOKEN_PUBLIC_KEY }}
-          access-token-expired-in: as
-          access-token-max-age: as
-          refresh-token-private-key: as
-          refresh-token-public-key: as
-          refresh-token-expired-in: as
-          refresh-token-max-age: as
-          email-from: SMTP
-          smtp-host: as
-          smtp-user: as
-          smtp-pass: as
-          smtp-port: as
+          access-token-expired-in: ${{ secrets.ACCESS_TOKEN_EXPIRED_IN }}
+          access-token-max-age: ${{ secrets.ACCESS_TOKEN_MAX_AGE }}
+          refresh-token-private-key: ${{ secrets.REFRESH_TOKEN_PRIVATE_KEY }}
+          refresh-token-public-key: ${{ secrets.REFRESH_TOKEN_PUBLIC_KEY }}
+          refresh-token-expired-in: ${{ secrets.REFRESH_TOKEN_EXPIRED_IN }}
+          refresh-token-max-age: ${{ secrets.REFRESH_TOKEN_MAXAGE }}
+          email-from: admin@admin.com
+          smtp-host: smtp.mailtrap.io
+          smtp-user: ${{ secrets.SMTP_USER }}
+          smtp-pass: ${{ secrets.SMTP_PASS }}
+          smtp-port: 587
