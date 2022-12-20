@@ -5,6 +5,7 @@ on:
     branches: [ master ]
 
 env:
+  APP_ENV: production
   SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
   PROJECT_ID: crowdfund-web3
   IMAGE_NAME: server
@@ -12,12 +13,24 @@ env:
 jobs:
   build-image:
     runs-on: ubuntu-latest
-    name: Deploy - Production
+    name: Build Image
     steps:
       - uses: actions/checkout@v2
-      - name: Build and Push to GCP
+      - name: Build image and push to Google Artifact Registry
         uses: ./.github/actions/build
         with:
           service-account: ${{ env.SERVICE_ACCOUNT_KEY }}
           project-id: ${{ env.PROJECT_ID }}
           image-name: ${{ env.IMAGE_NAME }}
+  
+  deploy-image:
+    runs-on: ubuntu-latest
+    name: Deploy - Production
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy image to Google Cloud Run
+        uses: ./.github/actions/build
+        with:
+          project-id: ${{ env.PROJECT_ID }}
+          image-name: ${{ env.IMAGE_NAME }}
+          app-env: ${{ env.APP_ENV }}

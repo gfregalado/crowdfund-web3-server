@@ -1,3 +1,22 @@
 name: Deploy
-description: Deploys to the given environment
+description: Deploy image to Google Cloud Run
 
+inputs:
+  app-env:
+    description: App environment
+    required: true
+  project-id:
+    description: Project ID
+    required: true
+  image-name:
+    description: Image name
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Authenticate to GCP
+      uses: 'google-github-actions/deploy-cloudrun@v1'
+      with:
+        service: ${{ inputs.project-id }}-${{ inputs.app-env }}
+        image: europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest 
