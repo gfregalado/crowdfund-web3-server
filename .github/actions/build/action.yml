@@ -25,24 +25,26 @@ runs:
       uses: google-github-actions/setup-gcloud@v1
 
     - name: Build Docker Image
-      run: docker build -t $IMAGE_NAME:latest .
+      shell: bash
+      run: docker build -t ${{ inputs.image-name }}:latest .
 
     - name: Automatic Tagging of Releases
-      id: increment-git-tag
+      shell: bash
       run: |
         bash ./scripts/git_update.sh -v minor
 
     - name: Configure Docker Client
+      shell: bash
       run: |-
-        gcloud auth configure-docker --quiet
         gcloud auth configure-docker europe-west2-docker.pkg.dev --quiet
 
     - name: Push Docker Image to Artifact Registry
+      shell: bash
       env:
         GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
       run: |-
-        docker tag $IMAGE_NAME:latest europe-west2-docker.pkg.dev/$PROJECT_ID/server/$IMAGE_NAME:latest
-        docker tag $IMAGE_NAME:latest europe-west2-docker.pkg.dev/$PROJECT_ID/server/$IMAGE_NAME:$GIT_TAG
-        docker push europe-west2-docker.pkg.dev/$PROJECT_ID/server/$IMAGE_NAME:latest
-        docker push europe-west2-docker.pkg.dev/$PROJECT_ID/server/$IMAGE_NAME:$GIT_TAG 
+        docker tag ${{ inputs.image-name }}:latest europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest
+        docker tag ${{ inputs.image-name }}:latest europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:$GIT_TAG
+        docker push europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest
+        docker push europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:$GIT_TAG 
 
