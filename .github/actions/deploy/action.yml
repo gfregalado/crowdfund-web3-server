@@ -2,6 +2,9 @@ name: Deploy
 description: Deploy image to Google Cloud Run
 
 inputs:
+  service-account:
+    description: Service account
+    required: true
   app-env:
     description: App environment
     required: true
@@ -15,7 +18,16 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Deploy to cloud run
+    - name: Authenticate to GCP
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ inputs.service-account }}
+        project_id: ${{ inputs.project-id }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+
+    - name: Deploy to Cloudrun
       uses: 'google-github-actions/deploy-cloudrun@v1'
       with:
         service: ${{ inputs.project-id }}-${{ inputs.app-env }}
