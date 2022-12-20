@@ -11,10 +11,11 @@ env:
 
 jobs:
   build-image:
-    - uses: actions/checkout@v2
-    - name: Build and Push to GCP
-      uses: ./.github/actions/build
-      with:
-        service-account: ${{ env.SERVICE_ACCOUNT }}
-        project-id: ${{ PROJECT_ID }}
-        image-name: ${{ IMAGE_NAME }}
+    uses: actions/checkout@v2
+    
+    name: Build and Push to GCP
+    uses: ./.github/actions/build
+    with:
+      service-account: ${{ env.SERVICE_ACCOUNT }}
+      project-id: ${{ PROJECT_ID }}
+      image-name: ${{ IMAGE_NAME }}
