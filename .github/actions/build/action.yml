@@ -28,11 +28,6 @@ runs:
       shell: bash
       run: docker build -t ${{ inputs.image-name }}:latest .
 
-    - name: Automatic Tagging of Releases
-      shell: bash
-      run: |
-        bash ./scripts/git_update.sh -v patch
-
     - name: Configure Docker Client
       shell: bash
       run: |-
@@ -42,7 +37,5 @@ runs:
       shell: bash
       run: |-
         docker tag ${{ inputs.image-name }}:latest europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest
-        docker tag ${{ inputs.image-name }}:latest europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:${{ inputs.git-tag }}
-        docker push europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest
-        docker push europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:${{ inputs.git-tag }} 
+        docker push europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest 
 
