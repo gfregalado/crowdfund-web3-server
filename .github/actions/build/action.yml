@@ -66,19 +66,19 @@ runs:
         envkey_SERVER_PORT: 8000
         envkey_MONGODB_URI: ${{ inputs.mongo-uri }}
         envkey_CLIENT_URL: ${{ inputs.client-url }}
-        envkey_ACCESS_TOKEN_PRIVATE_KEY: ${{ input.access-token-private-key }}
-        envkey_ACCESS_TOKEN_PUBLIC_KEY: ${{ input.access-token-public-key }}
-        envkey_ACCESS_TOKEN_EXPIRED_IN: ${{ input.access-token-expired-in }}
-        envkey_ACCESS_TOKEN_MAX_AGE: ${{ input.access-token-max-age }}
-        envkey_REFRESH_TOKEN_PRIVATE_KEY: ${{ input.refresh-token-private-key }}
-        envkey_REFRESH_TOKEN_PUBLIC_KEY: ${{ input.refresh-token-public-key }}
-        envkey_REFRESH_TOKEN_EXPIRED_IN: ${{ input.refresh-token-expired-in }}
-        envkey_REFRESH_TOKEN_MAX_AGE: ${{ input.refresh-token-max-age }}
-        envkey_EMAIL_FROM: ${{ input.email-from }}
-        envkey_SMTP_HOST: ${{ input.smtp-host }}
-        envkey_SMTP_USER: ${{ input.smtp-user }}
-        envkey_SMTP_PASS: ${{ input.smtp-pass }}
-        envkey_SMTP_PORT: ${{ input.smtp-port }}
+        envkey_ACCESS_TOKEN_PRIVATE_KEY: ${{ inputs.access-token-private-key }}
+        envkey_ACCESS_TOKEN_PUBLIC_KEY: ${{ inputs.access-token-public-key }}
+        envkey_ACCESS_TOKEN_EXPIRED_IN: ${{ inputs.access-token-expired-in }}
+        envkey_ACCESS_TOKEN_MAX_AGE: ${{ inputs.access-token-max-age }}
+        envkey_REFRESH_TOKEN_PRIVATE_KEY: ${{ inputs.refresh-token-private-key }}
+        envkey_REFRESH_TOKEN_PUBLIC_KEY: ${{ inputs.refresh-token-public-key }}
+        envkey_REFRESH_TOKEN_EXPIRED_IN: ${{ inputs.refresh-token-expired-in }}
+        envkey_REFRESH_TOKEN_MAX_AGE: ${{ inputs.refresh-token-max-age }}
+        envkey_EMAIL_FROM: ${{ inputs.email-from }}
+        envkey_SMTP_HOST: ${{ inputs.smtp-host }}
+        envkey_SMTP_USER: ${{ inputs.smtp-user }}
+        envkey_SMTP_PASS: ${{ inputs.smtp-pass }}
+        envkey_SMTP_PORT: ${{ inputs.smtp-port }}
         directory: .
         file_name: app.env
         fail_on_empty: false
