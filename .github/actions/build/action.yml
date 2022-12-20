@@ -27,8 +27,8 @@ runs:
     - name: Build Docker Image
       shell: bash
       run: |- 
-        docker 
-        --build-arg PORT=8080
+        docker \
+        --build-arg PORT=8080 \
         build -t ${{ inputs.image-name }}:latest .
 
     - name: Configure Docker Client
