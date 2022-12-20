@@ -8,6 +8,7 @@ env:
   SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
   PROJECT_ID: crowdfund-web3
   IMAGE_NAME: server
+  GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
 
 jobs:
   build-image:
@@ -21,3 +22,4 @@ jobs:
           service-account: ${{ env.SERVICE_ACCOUNT_KEY }}
           project-id: ${{ env.PROJECT_ID }}
           image-name: ${{ env.IMAGE_NAME }}
+          git-tag: ${{ env.GIT_TAG }}

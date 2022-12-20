@@ -31,7 +31,7 @@ runs:
     - name: Automatic Tagging of Releases
       shell: bash
       run: |
-        bash ./scripts/git_update.sh -v minor
+        bash ./scripts/git_update.sh -v patch
 
     - name: Configure Docker Client
       shell: bash
@@ -40,11 +40,9 @@ runs:
 
     - name: Push Docker Image to Artifact Registry
       shell: bash
-      env:
-        GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
       run: |-
         docker tag ${{ inputs.image-name }}:latest europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest
-        docker tag ${{ inputs.image-name }}:latest europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:$GIT_TAG
+        docker tag ${{ inputs.image-name }}:latest europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:${{ inputs.git-tag }}
         docker push europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest
-        docker push europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:$GIT_TAG 
+        docker push europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:${{ inputs.git-tag }} 
 
