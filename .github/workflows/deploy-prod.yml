@@ -18,6 +18,6 @@ jobs:
       - name: Build and Push to GCP
         uses: ./.github/actions/build
         with:
-          service-account: ${{ env.SERVICE_ACCOUNT }}
+          service-account: ${{ env.SERVICE_ACCOUNT_KEY }}
           project-id: ${{ env.PROJECT_ID }}
           image-name: ${{ env.IMAGE_NAME }}
