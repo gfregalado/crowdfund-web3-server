@@ -28,7 +28,5 @@ runs:
       uses: google-github-actions/setup-gcloud@v1
 
     - name: Deploy to Cloudrun
-      uses: 'google-github-actions/deploy-cloudrun@v1'
-      with:
-        service: ${{ inputs.project-id }}-${{ inputs.app-env }}
-        image: europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest 
+      shell: bash
+      run: gcloud run deploy ${{ inputs.project-id }}-${{ inputs.app-env }} --image europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest
