@@ -26,6 +26,7 @@ jobs:
   deploy-image:
     runs-on: ubuntu-latest
     name: Deploy - Production
+    needs: [build-image]
     steps:
       - uses: actions/checkout@v2
       - name: Deploy image to Google Cloud Run
