@@ -36,3 +36,18 @@ jobs:
           project-id: ${{ env.PROJECT_ID }}
           image-name: ${{ env.IMAGE_NAME }}
           app-env: ${{ env.APP_ENV }}
+          mongo-uri: ${{ secrets.MONGO_URI_PRODUCTION }}
+          client-url: coming-soon
+          access-token-private-key: ${{ secrets.ACCESS_TOKEN_PRIVATE_KEY }}
+          access-token-public-key: ${{ secrets.ACCESS_TOKEN_PUBLIC_KEY }}
+          access-token-expired-in: as
+          access-token-max-age: as
+          refresh-token-private-key: as
+          refresh-token-public-key: as
+          refresh-token-expired-in: as
+          refresh-token-max-age: as
+          email-from: SMTP
+          smtp-host: as
+          smtp-user: as
+          smtp-pass: as
+          smtp-port: as
