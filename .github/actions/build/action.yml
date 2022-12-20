@@ -26,7 +26,7 @@ runs:
 
     - name: Build Docker Image
       shell: bash
-      run: docker -t ${{ inputs.image-name }}:latest build .
+      run: docker build -t ${{ inputs.image-name }}:latest .
 
     - name: Configure Docker Client
       shell: bash
