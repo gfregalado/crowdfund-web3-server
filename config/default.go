@@ -8,7 +8,7 @@ import (
 
 type Config struct {
 	DBUri  string `mapstructure:"MONGODB_URI"`
-	Port   string `mapstructure:"PORT"`
+	Port   string `mapstructure:"SERVER_PORT"`
 	Origin string `mapstructure:"CLIENT_URL"`
 
 	AccessTokenPrivateKey  string        `mapstructure:"ACCESS_TOKEN_PRIVATE_KEY"`
