@@ -27,6 +27,9 @@ type AuthController struct {
 	temp        *template.Template
 }
 
+const REFRESH_TOKEN_EXPIRED_IN = time.Hour
+const ACCESS_TOKEN_EXPIRED_IN = time.Minute * 15
+
 func NewAuthController(authService services.AuthService, userService services.UserService, ctx context.Context, collection *mongo.Collection, temp *template.Template) AuthController {
 	return AuthController{authService, userService, ctx, collection, temp}
 }
@@ -118,13 +121,13 @@ func (ac *AuthController) SignInUser(ctx *gin.Context) {
 	config, _ := config.LoadConfig(".")
 
 	// Generate Tokens
-	access_token, err := utils.CreateToken(config.AccessTokenExpiresIn, user.ID, config.AccessTokenPrivateKey)
+	access_token, err := utils.CreateToken(ACCESS_TOKEN_EXPIRED_IN, user.ID, config.AccessTokenPrivateKey)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
 		return
 	}
 
-	refresh_token, err := utils.CreateToken(config.RefreshTokenExpiresIn, user.ID, config.RefreshTokenPrivateKey)
+	refresh_token, err := utils.CreateToken(REFRESH_TOKEN_EXPIRED_IN, user.ID, config.RefreshTokenPrivateKey)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
 		return
@@ -161,7 +164,7 @@ func (ac *AuthController) RefreshAccessToken(ctx *gin.Context) {
 		return
 	}
 
-	access_token, err := utils.CreateToken(config.AccessTokenExpiresIn, user.ID, config.AccessTokenPrivateKey)
+	access_token, err := utils.CreateToken(ACCESS_TOKEN_EXPIRED_IN, user.ID, config.AccessTokenPrivateKey)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusForbidden, gin.H{"status": "fail", "message": err.Error()})
 		return
