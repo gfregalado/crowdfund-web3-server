@@ -23,9 +23,6 @@ inputs:
   access-token-public-key:
     description: Access token public key
     required: true
-  access-token-expired-in:
-    description: Access token expiration time
-    required: true
   access-token-max-age:
     description: Max age for expiration token
     required: true
@@ -34,9 +31,6 @@ inputs:
     required: true
   refresh-token-public-key:
     description: Refresh token public key
-    required: true
-  refresh-token-expired-in:
-    description: Refresh token expiration time
     required: true
   refresh-token-max-age:
     description: Max age for refresh token
@@ -68,11 +62,9 @@ runs:
         envkey_CLIENT_URL: ${{ inputs.client-url }}
         envkey_ACCESS_TOKEN_PRIVATE_KEY: ${{ inputs.access-token-private-key }}
         envkey_ACCESS_TOKEN_PUBLIC_KEY: ${{ inputs.access-token-public-key }}
-        envkey_ACCESS_TOKEN_EXPIRED_IN: ${{ inputs.access-token-expired-in }}
         envkey_ACCESS_TOKEN_MAX_AGE: ${{ inputs.access-token-max-age }}
         envkey_REFRESH_TOKEN_PRIVATE_KEY: ${{ inputs.refresh-token-private-key }}
         envkey_REFRESH_TOKEN_PUBLIC_KEY: ${{ inputs.refresh-token-public-key }}
-        envkey_REFRESH_TOKEN_EXPIRED_IN: ${{ inputs.refresh-token-expired-in }}
         envkey_REFRESH_TOKEN_MAX_AGE: ${{ inputs.refresh-token-max-age }}
         envkey_EMAIL_FROM: ${{ inputs.email-from }}
         envkey_SMTP_HOST: ${{ inputs.smtp-host }}

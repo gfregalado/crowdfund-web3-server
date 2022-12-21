@@ -40,11 +40,9 @@ jobs:
           client-url: coming-soon
           access-token-private-key: ${{ secrets.ACCESS_TOKEN_PRIVATE_KEY }}
           access-token-public-key: ${{ secrets.ACCESS_TOKEN_PUBLIC_KEY }}
-          access-token-expired-in: 15m
           access-token-max-age: ${{ secrets.ACCESS_TOKEN_MAX_AGE }}
           refresh-token-private-key: ${{ secrets.REFRESH_TOKEN_PRIVATE_KEY }}
           refresh-token-public-key: ${{ secrets.REFRESH_TOKEN_PUBLIC_KEY }}
-          refresh-token-expired-in: ${{ secrets.REFRESH_TOKEN_EXPIRED_IN }}
           refresh-token-max-age: 60m
           email-from: admin@admin.com
           smtp-host: smtp.mailtrap.io
