@@ -58,6 +58,7 @@ runs:
       uses: SpicyPizza/create-envfile@v1.3
       with:
         envkey_SERVER_PORT: 8000
+        envkey_APP_ENV: PROD
         envkey_MONGODB_URI: ${{ inputs.mongo-uri }}
         envkey_CLIENT_URL: ${{ inputs.client-url }}
         envkey_ACCESS_TOKEN_PRIVATE_KEY: ${{ inputs.access-token-private-key }}
