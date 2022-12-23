@@ -34,3 +34,4 @@ jobs:
           service-account: ${{ env.SERVICE_ACCOUNT_KEY }}
           project-id: ${{ env.PROJECT_ID }}
           image-name: ${{ env.IMAGE_NAME }}
+          app-env: ${{ env.APP_ENV }}

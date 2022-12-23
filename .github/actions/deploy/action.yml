@@ -5,6 +5,9 @@ inputs:
   service-account:
     description: Service account
     required: true
+  app-env:
+    description: App environment
+    required: true
   project-id:
     description: Project ID
     required: true
