@@ -1,3 +1,4 @@
+---
 name: Build and Push Image to Google Cloud Platform
 on:
   push:
@@ -7,7 +8,7 @@ env:
   APP_ENV: production
   SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
   PROJECT_ID: crowdfund-web3
-  IMAGE_NAME: server-prod
+  IMAGE_NAME: server
 
 jobs:
   build-image:
@@ -34,3 +35,4 @@ jobs:
           service-account: ${{ env.SERVICE_ACCOUNT_KEY }}
           project-id: ${{ env.PROJECT_ID }}
           image-name: ${{ env.IMAGE_NAME }}
+          app-env: ${{ env.APP_ENV }}
