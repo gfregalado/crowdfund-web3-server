@@ -1,13 +1,13 @@
 name: Build and Push Image to Google Cloud Platform
 on:
-  push:
-    branches: [ master ]
+  pull_request:
+    branches: [master]
 
 env:
-  APP_ENV: production
+  APP_ENV: test
   SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
   PROJECT_ID: crowdfund-web3
-  IMAGE_NAME: server-prod
+  IMAGE_NAME: server-test
 
 jobs:
   build-image:
