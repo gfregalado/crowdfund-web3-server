@@ -38,9 +38,10 @@ var (
 
 func init() {
 	temp = template.Must(template.ParseGlob("templates/*.html"))
+
 	config, err := config.LoadConfig(".")
 	if err != nil {
-		log.Fatal("Could not load environment variables", err)
+		fmt.Println("Could not load environment variables", err)
 	}
 
 	ctx = context.TODO()
