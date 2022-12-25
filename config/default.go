@@ -28,7 +28,11 @@ func LoadConfig(path string) (config Config, err error) {
 	viper.SetConfigType("env")
 	viper.SetConfigName("app")
 
-	viper.BindEnv("MONGODB_URI")
+	viper.SetDefault("MONGODB_URI", "mongo_uri")
+
+	if err != nil {
+		return
+	}
 
 	viper.AutomaticEnv()
 
