@@ -35,3 +35,12 @@ jobs:
           project-id: ${{ env.PROJECT_ID }}
           image-name: ${{ env.IMAGE_NAME }}
           app-env: ${{ env.APP_ENV }}
+          mongo-uri: ${{ secrets.MONGO_URI_PRODUCTION }}
+          server-port: 8000
+          client-url: comingsoon
+          access-token-private-key: ${{ secrets.ACCESS_TOKEN_PRIVATE_KEY }}
+          access-token-public-key: ${{ secrets.ACCESS_TOKEN_PUBLIC_KEY }}
+          access-token-max-age: ${{ secrets.ACCESS_TOKEN_MAX_AGE }}
+          refresh-token-private-key: ${{ secrets.REFRESH_TOKEN_PRIVATE_KEY }}
+          refresh-token-public-key: ${{ secrets.REFRESH_TOKEN_PUBLIC_KEY }}
+          refresh-token-max-age: ${{ secrets.REFRESH_TOKEN_MAX_AGE }}

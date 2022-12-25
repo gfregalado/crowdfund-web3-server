@@ -14,7 +14,7 @@ type Config struct {
 	RefreshTokenPrivateKey string `mapstructure:"REFRESH_TOKEN_PRIVATE_KEY"`
 	RefreshTokenPublicKey  string `mapstructure:"REFRESH_TOKEN_PUBLIC_KEY"`
 	AccessTokenMaxAge      int    `mapstructure:"ACCESS_TOKEN_MAXAGE"`
-	RefreshTokenMaxAge     int    `mapstructure:"REFRESH_TOKEN_MAXAGE"`
+	RefreshTokenMaxAge     int    `mapstructure:"REFRESH_TOKEN_MAX_AGE"`
 
 	EmailFrom string `mapstructure:"EMAIL_FROM"`
 	SMTPHost  string `mapstructure:"SMTP_HOST"`
@@ -28,7 +28,17 @@ func LoadConfig(path string) (config Config, err error) {
 	viper.SetConfigType("env")
 	viper.SetConfigName("app")
 
-	viper.SetDefault("MONGODB_URI", "mongo_uri")
+	viper.SetDefault("MONGODB_URI", "default")
+	viper.SetDefault("SERVER_PORT", "default")
+	viper.SetDefault("CLIENT_URL", "default")
+
+	viper.SetDefault("ACCESS_TOKEN_PRIVATE_KEY", "default")
+	viper.SetDefault("ACCESS_TOKEN_PUBLIC_KEY", "default")
+	viper.SetDefault("ACCESS_TOKEN_MAX_AGE", "default")
+
+	viper.SetDefault("REFRESH_TOKEN_PRIVATE_KEY", "default")
+	viper.SetDefault("REFRESH_TOKEN_PUBLIC_KEY", "default")
+	viper.SetDefault("REFRESH_TOKEN_MAX_AGE", "default")
 
 	if err != nil {
 		return
