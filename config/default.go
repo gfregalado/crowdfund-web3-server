@@ -44,6 +44,8 @@ func LoadConfig(path string) (config Config, err error) {
 		return
 	}
 
+	var c Config
+
 	viper.AutomaticEnv()
 
 	err = viper.ReadInConfig()
@@ -51,6 +53,18 @@ func LoadConfig(path string) (config Config, err error) {
 		return
 	}
 
-	err = viper.Unmarshal(&config)
+	// ADD START
+	envKeysMap := &map[string]interface{}{}
+	for k := range *envKeysMap {
+		if bindErr := viper.BindEnv(k); bindErr != nil {
+			return
+		}
+	}
+	// ADD END
+
+	if err = viper.Unmarshal(&c); err != nil {
+		return
+	}
+
 	return
 }
