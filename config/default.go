@@ -28,23 +28,9 @@ func LoadConfig(path string) (config Config, err error) {
 	viper.SetConfigType("env")
 	viper.SetConfigName("app")
 
-	viper.SetDefault("MONGODB_URI", "default")
-	viper.SetDefault("SERVER_PORT", "default")
-	viper.SetDefault("CLIENT_URL", "default")
-
-	viper.SetDefault("ACCESS_TOKEN_PRIVATE_KEY", "default")
-	viper.SetDefault("ACCESS_TOKEN_PUBLIC_KEY", "default")
-	viper.SetDefault("ACCESS_TOKEN_MAX_AGE", "default")
-
-	viper.SetDefault("REFRESH_TOKEN_PRIVATE_KEY", "default")
-	viper.SetDefault("REFRESH_TOKEN_PUBLIC_KEY", "default")
-	viper.SetDefault("REFRESH_TOKEN_MAX_AGE", "default")
-
 	if err != nil {
 		return
 	}
-
-	var c Config
 
 	viper.AutomaticEnv()
 
@@ -53,18 +39,6 @@ func LoadConfig(path string) (config Config, err error) {
 		return
 	}
 
-	// ADD START
-	envKeysMap := &map[string]interface{}{}
-	for k := range *envKeysMap {
-		if bindErr := viper.BindEnv(k); bindErr != nil {
-			return
-		}
-	}
-	// ADD END
-
-	if err = viper.Unmarshal(&c); err != nil {
-		return
-	}
-
+	err = viper.Unmarshal(&config)
 	return
 }

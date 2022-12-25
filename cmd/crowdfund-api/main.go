@@ -13,6 +13,7 @@ import (
 	"github.com/gfregalado/crowdfund-api/services"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -41,7 +42,19 @@ func init() {
 
 	config, err := config.LoadConfig(".")
 	if err != nil {
-		fmt.Println("Could not load environment variables", err)
+		viper.SetDefault("MONGODB_URI", "default")
+		viper.SetDefault("SERVER_PORT", "default")
+		viper.SetDefault("CLIENT_URL", "default")
+
+		viper.SetDefault("ACCESS_TOKEN_PRIVATE_KEY", "default")
+		viper.SetDefault("ACCESS_TOKEN_PUBLIC_KEY", "default")
+		viper.SetDefault("ACCESS_TOKEN_MAX_AGE", "default")
+
+		viper.SetDefault("REFRESH_TOKEN_PRIVATE_KEY", "default")
+		viper.SetDefault("REFRESH_TOKEN_PUBLIC_KEY", "default")
+		viper.SetDefault("REFRESH_TOKEN_MAX_AGE", "default")
+
+		viper.AutomaticEnv()
 	}
 
 	ctx = context.TODO()
