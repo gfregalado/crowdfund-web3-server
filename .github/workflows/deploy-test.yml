@@ -37,7 +37,7 @@ jobs:
           app-env: ${{ env.APP_ENV }}
           mongo-uri: ${{ secrets.MONGO_URI_PRODUCTION }}
           server-port: 8000
-          client-url: comingsoon
+          client-url: https://localhost:2000
           access-token-private-key: ${{ secrets.ACCESS_TOKEN_PRIVATE_KEY }}
           access-token-public-key: ${{ secrets.ACCESS_TOKEN_PUBLIC_KEY }}
           access-token-max-age: ${{ secrets.ACCESS_TOKEN_MAX_AGE }}
