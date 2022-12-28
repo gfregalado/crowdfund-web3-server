@@ -20,7 +20,7 @@ jobs:
         with:
           service-account: ${{ env.SERVICE_ACCOUNT_KEY }}
           project-id: ${{ env.PROJECT_ID }}
-          image-name: ${{ env.IMAGE_NAME }}
+          image-name: ${{ env.IMAGE_NAME }}-test
   
   deploy-image:
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
           app-env: ${{ env.APP_ENV }}
           mongo-uri: ${{ secrets.MONGO_URI_PRODUCTION }}
           server-port: 8000
-          client-url: https://localhost:2000
+          client-url: ${{ secrets.CLIENT_URL_TEST }}
           access-token-private-key: ${{ secrets.ACCESS_TOKEN_PRIVATE_KEY }}
           access-token-public-key: ${{ secrets.ACCESS_TOKEN_PUBLIC_KEY }}
           access-token-max-age: ${{ secrets.ACCESS_TOKEN_MAX_AGE }}
