@@ -13,7 +13,6 @@ import (
 	"github.com/gfregalado/crowdfund-api/services"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -40,21 +39,9 @@ var (
 func init() {
 	temp = template.Must(template.ParseGlob("templates/*.html"))
 
-	config, err := config.LoadConfig(".")
+	config, err := config.LoadConfig()
 	if err != nil {
-		viper.SetDefault("MONGODB_URI", "default")
-		viper.SetDefault("SERVER_PORT", "default")
-		viper.SetDefault("CLIENT_URL", "default")
-
-		viper.SetDefault("ACCESS_TOKEN_PRIVATE_KEY", "default")
-		viper.SetDefault("ACCESS_TOKEN_PUBLIC_KEY", "default")
-		viper.SetDefault("ACCESS_TOKEN_MAX_AGE", "default")
-
-		viper.SetDefault("REFRESH_TOKEN_PRIVATE_KEY", "default")
-		viper.SetDefault("REFRESH_TOKEN_PUBLIC_KEY", "default")
-		viper.SetDefault("REFRESH_TOKEN_MAX_AGE", "default")
-
-		viper.AutomaticEnv()
+		fmt.Println("Could not load environment variables", err)
 	}
 
 	ctx = context.TODO()
@@ -87,7 +74,7 @@ func init() {
 }
 
 func main() {
-	config, err := config.LoadConfig(".")
+	config, err := config.LoadConfig()
 
 	if err != nil {
 		log.Fatal("Could not load config", err)
