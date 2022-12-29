@@ -14,6 +14,27 @@ inputs:
   image-name:
     description: Image name
     required: true
+  client-url:
+    description: Client URL for CORS policies
+    required: true
+  access-token-private-key:
+      description: Access token private key
+      required: true
+  access-token-public-key:
+      description: Access token public key
+      required: true
+  access-token-max-age:
+      description: Access token max age
+      required: true
+  refresh-token-private-key:
+      description: Refresh token private key
+      required: true
+  refresh-token-public-key:
+      description: Refresh token publix key
+      required: true
+  refresh-token-max-age:
+      description: Refresh token max age
+      required: true
 
 runs:
   using: composite
