@@ -1,14 +1,13 @@
----
 name: Build and Push Image to Google Cloud Platform
 on:
-  push:
-    branches: [ master ]
+  pull_request:
+    branches: [master]
 
 env:
-  APP_ENV: production
+  APP_ENV: test
   SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
   PROJECT_ID: crowdfund-web3
-  IMAGE_NAME: server
+  IMAGE_NAME: server-test
 
 jobs:
   build-image:
@@ -38,7 +37,7 @@ jobs:
           app-env: ${{ env.APP_ENV }}
           mongo-uri: ${{ secrets.MONGO_URI_PRODUCTION }}
           server-port: 8000
-          client-url: ${{ secrets.CLIENT_URL_PRODUCTION }}
+          client-url: ${{ secrets.CLIENT_URL_TEST }}
           access-token-private-key: ${{ secrets.ACCESS_TOKEN_PRIVATE_KEY }}
           access-token-public-key: ${{ secrets.ACCESS_TOKEN_PUBLIC_KEY }}
           access-token-max-age: ${{ secrets.ACCESS_TOKEN_MAX_AGE }}

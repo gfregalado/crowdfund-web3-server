@@ -14,6 +14,27 @@ inputs:
   image-name:
     description: Image name
     required: true
+  client-url:
+    description: Client URL for CORS policies
+    required: true
+  access-token-private-key:
+      description: Access token private key
+      required: true
+  access-token-public-key:
+      description: Access token public key
+      required: true
+  access-token-max-age:
+      description: Access token max age
+      required: true
+  refresh-token-private-key:
+      description: Refresh token private key
+      required: true
+  refresh-token-public-key:
+      description: Refresh token publix key
+      required: true
+  refresh-token-max-age:
+      description: Refresh token max age
+      required: true
 
 runs:
   using: composite
@@ -33,6 +54,15 @@ runs:
           gcloud run deploy ${{ inputs.project-id }}-${{ inputs.app-env }} \
             --region europe-west2 \
             --image europe-west2-docker.pkg.dev/${{ inputs.project-id }}/server/${{ inputs.image-name }}:latest \
+            --set-env-vars "MONGODB_URI=${{ inputs.mongo-uri }}" \
+            --set-env-vars "SERVER_PORT=${{ inputs.server-port }}" \
+            --set-env-vars "CLIENT_URL=${{ inputs.client-url }}" \
+            --set-env-vars "ACCESS_TOKEN_PRIVATE_KEY=${{ inputs.access-token-private-key }}" \
+            --set-env-vars "ACCESS_TOKEN_PUBLIC_KEY=${{ inputs.access-token-public-key }}" \
+            --set-env-vars "ACCESS_TOKEN_MAX_AGE=${{ inputs.access-token-max-age }}" \
+            --set-env-vars "REFRESH_TOKEN_PRIVATE_KEY=${{ inputs.refresh-token-private-key }}" \
+            --set-env-vars "REFRESH_TOKEN_PUBLIC_KEY=${{ inputs.refresh-token-public-key }}" \
+            --set-env-vars "REFRESH_TOKEN_MAX_AGE=${{ inputs.refresh-token-max-age }}" \
             --port "8000" \
             --platform "managed" \
             --allow-unauthenticated \

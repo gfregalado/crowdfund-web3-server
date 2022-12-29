@@ -1,7 +1,11 @@
 package config
 
 import (
-	"github.com/spf13/viper"
+	"fmt"
+	"os"
+	"strconv"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -13,8 +17,8 @@ type Config struct {
 	AccessTokenPublicKey   string `mapstructure:"ACCESS_TOKEN_PUBLIC_KEY"`
 	RefreshTokenPrivateKey string `mapstructure:"REFRESH_TOKEN_PRIVATE_KEY"`
 	RefreshTokenPublicKey  string `mapstructure:"REFRESH_TOKEN_PUBLIC_KEY"`
-	AccessTokenMaxAge      int    `mapstructure:"ACCESS_TOKEN_MAXAGE"`
-	RefreshTokenMaxAge     int    `mapstructure:"REFRESH_TOKEN_MAXAGE"`
+	AccessTokenMaxAge      int    `mapstructure:"ACCESS_TOKEN_MAX_AGE"`
+	RefreshTokenMaxAge     int    `mapstructure:"REFRESH_TOKEN_MAX_AGE"`
 
 	EmailFrom string `mapstructure:"EMAIL_FROM"`
 	SMTPHost  string `mapstructure:"SMTP_HOST"`
@@ -23,20 +27,37 @@ type Config struct {
 	SMTPUser  string `mapstructure:"SMTP_USER"`
 }
 
-func LoadConfig(path string) (config Config, err error) {
-	viper.AddConfigPath(path)
-	viper.SetConfigType("env")
-	viper.SetConfigName("app")
+func LoadConfig() (config Config, err error) {
+	godotenv.Load(".env")
 
-	viper.BindEnv("MONGODB_URI")
+	config.DBUri = os.Getenv("MONGODB_URI")
+	config.Port = os.Getenv("SERVER_PORT")
+	config.Origin = os.Getenv("CLIENT_URL")
+	config.AccessTokenPrivateKey = os.Getenv("ACCESS_TOKEN_PRIVATE_KEY")
+	config.AccessTokenPublicKey = os.Getenv("ACCESS_TOKEN_PUBLIC_KEY")
 
-	viper.AutomaticEnv()
+	config.RefreshTokenPrivateKey = os.Getenv("REFRESH_TOKEN_PRIVATE_KEY")
+	config.RefreshTokenPublicKey = os.Getenv("REFRESH_TOKEN_PUBLIC_KEY")
 
-	err = viper.ReadInConfig()
+	ACCESS_TOKEN_MAX_AGE := os.Getenv("ACCESS_TOKEN_MAX_AGE")
+	config.AccessTokenMaxAge, err = strconv.Atoi(ACCESS_TOKEN_MAX_AGE)
+
+	if err != nil {
+		fmt.Println("Error during ACCESS_TOKEN_MAX_AGE conversion")
+		return
+	}
+
+	REFRESH_TOKEN_MAX_AGE := os.Getenv("REFRESH_TOKEN_MAX_AGE")
+	config.AccessTokenMaxAge, err = strconv.Atoi(REFRESH_TOKEN_MAX_AGE)
+
+	if err != nil {
+		fmt.Println("Error during REFRESH_TOKEN_MAX_AGE conversion")
+		return
+	}
+
 	if err != nil {
 		return
 	}
 
-	err = viper.Unmarshal(&config)
 	return
 }

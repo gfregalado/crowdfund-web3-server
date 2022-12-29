@@ -58,7 +58,7 @@ func (ac *AuthController) SignUpUser(ctx *gin.Context) {
 		return
 	}
 
-	config, err := config.LoadConfig(".")
+	config, err := config.LoadConfig()
 	if err != nil {
 		log.Fatal("Could not load config", err)
 	}
@@ -118,7 +118,7 @@ func (ac *AuthController) SignInUser(ctx *gin.Context) {
 		return
 	}
 
-	config, _ := config.LoadConfig(".")
+	config, _ := config.LoadConfig()
 
 	// Generate Tokens
 	access_token, err := utils.CreateToken(ACCESS_TOKEN_EXPIRED_IN, user.ID, config.AccessTokenPrivateKey)
@@ -150,7 +150,7 @@ func (ac *AuthController) RefreshAccessToken(ctx *gin.Context) {
 		return
 	}
 
-	config, _ := config.LoadConfig(".")
+	config, _ := config.LoadConfig()
 
 	sub, err := utils.ValidateToken(cookie, config.RefreshTokenPublicKey)
 	if err != nil {
@@ -209,7 +209,7 @@ func (ac *AuthController) ForgotPassword(ctx *gin.Context) {
 		return
 	}
 
-	config, err := config.LoadConfig(".")
+	config, err := config.LoadConfig()
 	if err != nil {
 		log.Fatal("Could not load config", err)
 	}

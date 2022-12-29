@@ -23,7 +23,7 @@ type EmailData struct {
 
 // ? Email template parser
 func SendEmail(user *models.DBResponse, data *EmailData, temp *template.Template, templateName string) error {
-	config, err := config.LoadConfig(".")
+	config, err := config.LoadConfig()
 
 	if err != nil {
 		log.Fatal("could not load config", err)

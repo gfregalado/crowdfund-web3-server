@@ -38,14 +38,14 @@ var (
 
 func init() {
 	temp = template.Must(template.ParseGlob("templates/*.html"))
-	config, err := config.LoadConfig(".")
+
+	config, err := config.LoadConfig()
+
 	if err != nil {
-		log.Fatal("Could not load environment variables", err)
+		fmt.Println("Could not load environment variables", err)
 	}
 
 	ctx = context.TODO()
-
-	fmt.Printf(config.DBUri)
 
 	// Connect to MongoDB
 	mongoconn := options.Client().ApplyURI(config.DBUri)
@@ -75,7 +75,7 @@ func init() {
 }
 
 func main() {
-	config, err := config.LoadConfig(".")
+	config, err := config.LoadConfig()
 
 	if err != nil {
 		log.Fatal("Could not load config", err)
