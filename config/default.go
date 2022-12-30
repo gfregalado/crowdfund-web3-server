@@ -20,11 +20,8 @@ type Config struct {
 	AccessTokenMaxAge      int    `mapstructure:"ACCESS_TOKEN_MAX_AGE"`
 	RefreshTokenMaxAge     int    `mapstructure:"REFRESH_TOKEN_MAX_AGE"`
 
-	EmailFrom string `mapstructure:"EMAIL_FROM"`
-	SMTPHost  string `mapstructure:"SMTP_HOST"`
-	SMTPPass  string `mapstructure:"SMTP_PASS"`
-	SMTPPort  int    `mapstructure:"SMTP_PORT"`
-	SMTPUser  string `mapstructure:"SMTP_USER"`
+	SendGridApiKey string `mapstructure:"SEND_GRID_API_KEY"`
+	EmailFrom      string `mapstructure:"EMAIL_FROM"`
 }
 
 func LoadConfig() (config Config, err error) {
@@ -38,6 +35,11 @@ func LoadConfig() (config Config, err error) {
 
 	config.RefreshTokenPrivateKey = os.Getenv("REFRESH_TOKEN_PRIVATE_KEY")
 	config.RefreshTokenPublicKey = os.Getenv("REFRESH_TOKEN_PUBLIC_KEY")
+
+	config.SendGridApiKey = os.Getenv("SEND_GRID_API_KEY")
+
+	// temporary until there is a point in adding proper email structure
+	config.EmailFrom = "gf.regalado@gmail.com"
 
 	ACCESS_TOKEN_MAX_AGE := os.Getenv("ACCESS_TOKEN_MAX_AGE")
 	config.AccessTokenMaxAge, err = strconv.Atoi(ACCESS_TOKEN_MAX_AGE)

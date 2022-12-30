@@ -2,7 +2,6 @@ package utils
 
 import (
 	"bytes"
-	"crypto/tls"
 	"fmt"
 	"html/template"
 	"log"
@@ -11,8 +10,8 @@ import (
 
 	"github.com/gfregalado/crowdfund-api/config"
 	"github.com/gfregalado/crowdfund-api/models"
-	"github.com/k3a/html2text"
-	"gopkg.in/gomail.v2"
+	"github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
 type EmailData struct {
@@ -30,34 +29,38 @@ func SendEmail(user *models.DBResponse, data *EmailData, temp *template.Template
 	}
 
 	// Sender data.
-	from := config.EmailFrom
+
+	/* from := config.EmailFrom
 	smtpPass := config.SMTPPass
 	smtpUser := config.SMTPUser
 	to := user.Email
 	smtpHost := config.SMTPHost
 	smtpPort := config.SMTPPort
 
+	*/
 	var body bytes.Buffer
 
 	if err := temp.ExecuteTemplate(&body, templateName, &data); err != nil {
 		log.Fatal("Could not execute template", err)
 	}
 
-	m := gomail.NewMessage()
+	from := mail.NewEmail("info", config.EmailFrom)
+	to := mail.NewEmail(user.Name, user.Email)
+	subject := data.Subject
+	plainTextContent := body.String()
+	htmlContent := body.String()
 
-	m.SetHeader("From", from)
-	m.SetHeader("To", to)
-	m.SetHeader("Subject", data.Subject)
-	m.SetBody("text/html", body.String())
-	m.AddAlternative("text/plain", html2text.HTML2Text(body.String()))
+	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
+	client := sendgrid.NewSendClient(config.SendGridApiKey)
 
-	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
-	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+	response, err := client.Send(message)
 
-	// Send Email
-	if err := d.DialAndSend(m); err != nil {
-		return err
+	if err != nil {
+		log.Println(err)
+	} else {
+		log.Println(response.StatusCode)
 	}
+
 	return nil
 }
 
@@ -74,7 +77,7 @@ func ParseTemplateDir(dir string) (*template.Template, error) {
 		return nil
 	})
 
-	fmt.Println("Am parsing templates...")
+	fmt.Println("I am parsing templates...")
 
 	if err != nil {
 		return nil, err

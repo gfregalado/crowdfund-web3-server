@@ -35,6 +35,9 @@ inputs:
   refresh-token-max-age:
       description: Refresh token max age
       required: true
+  send-grid-api-token:
+      description: Send Grid API token
+      required: true
 
 runs:
   using: composite
@@ -63,6 +66,7 @@ runs:
             --set-env-vars "REFRESH_TOKEN_PRIVATE_KEY=${{ inputs.refresh-token-private-key }}" \
             --set-env-vars "REFRESH_TOKEN_PUBLIC_KEY=${{ inputs.refresh-token-public-key }}" \
             --set-env-vars "REFRESH_TOKEN_MAX_AGE=${{ inputs.refresh-token-max-age }}" \
+            --set-env-vars "SEND_GRID_API_KEY=${{ inputs.send-grid-api-token }}" \
             --port "8000" \
             --platform "managed" \
             --allow-unauthenticated \

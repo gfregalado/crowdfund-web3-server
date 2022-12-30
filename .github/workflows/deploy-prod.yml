@@ -45,3 +45,4 @@ jobs:
           refresh-token-private-key: ${{ secrets.REFRESH_TOKEN_PRIVATE_KEY }}
           refresh-token-public-key: ${{ secrets.REFRESH_TOKEN_PUBLIC_KEY }}
           refresh-token-max-age: ${{ secrets.REFRESH_TOKEN_MAX_AGE }}
+          send-grid-api-token: ${{ secrets.SEND_GRID_API_KEY }}
